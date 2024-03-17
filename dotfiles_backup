@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+REPO="https://github.com/kevin7254/dotfiles.git"
+BACKUP_FOLDER="$HOME/dotfiles-backup-$(date +%Y-%m-%d_%H-%M-%S)"
+
+echo "Backing up existing dotfiles to $BACKUP_FOLDER"
+git clone --bare $REPO .dotfiles/
+mkdir -p $BACKUP_FOLDER
+FILES=$(cd .dotfiles && git ls-tree -r master --name-only)
+
+for file in $FILES; do
+  mkdir -p $BACKUP_FOLDER/$(dirname $file)
+  # If the file exists, move it to the backup folder
+    if [ -f $HOME/$file ]; then
+        mv $HOME/$file $BACKUP_FOLDER/$file
+    fi
+done
+
+echo "Restoring dotfiles"
+
+if [ -d $HOME/.dotfiles ]; then
+    mv $HOME/.dotfiles $BACKUP_FOLDER/.dotfiles
+fi
+
+mv .dotfiles $HOME
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
+
+echo "Done"
