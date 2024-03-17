@@ -53,6 +53,6 @@ else
     echo "Skipping neovim installation."
 fi
 
-./dotfiles_backup
+sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kevin7254/dotfiles/master/bin/dotfiles_backup)"
 
 echo "Done"
