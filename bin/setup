@@ -38,8 +38,10 @@ else
     echo "fzf is already installed."
 fi
 
-if [ ! -d "$HOME/.config/nvim" ]; then
-    # Prerequisites
+echo "Would you like to install neovim from source? (y/n)"
+read -r response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+    echo "Installing neovim..."
     sudo apt-get install ninja-build gettext cmake unzip curl build-essential
     git clone https://github.com/neovim/neovim
     cd neovim && make CMAKE_BUILD_TYPE=Release
@@ -48,9 +50,8 @@ if [ ! -d "$HOME/.config/nvim" ]; then
     cd ../..
     rm -rf neovim
 else
-    echo "nvim is already installed."
+    echo "Skipping neovim installation."
 fi
-
 
 ./dotfiles_backup
 
