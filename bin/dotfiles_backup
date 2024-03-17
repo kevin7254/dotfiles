@@ -25,5 +25,6 @@ fi
 mv .dotfiles $HOME
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME remote set-url origin git@github.com:kevin7254/dotfiles.git
 
 echo "Done"

@@ -1,9 +1,15 @@
 #!/bin/bash
 set -e
-sudo apt install git neovim snapd i3 zsh tmux ripgrep fd-find fonts-jetbrains-mono xclip unzip -y
+sudo apt install git snapd i3 zsh tmux ripgrep fd-find fonts-jetbrains-mono xclip unzip -y
 sudo snap install alacritty --classic
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
+
+if [ ! -d "$HOME/.bin" ]; then
+    mkdir $HOME/.bin
+else
+    echo "Directory .bin already exists."
+fi
 
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -19,7 +25,6 @@ else
     echo "Oh My Zsh is already installed."
 fi
 
-
 if ! command -v zoxide &> /dev/null; then
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 else
@@ -31,6 +36,19 @@ if [ ! -d "$HOME/.fzf" ]; then
     ~/.fzf/install
 else
     echo "fzf is already installed."
+fi
+
+if [ ! -d "$HOME/.config/nvim" ]; then
+    # Prerequisites
+    sudo apt-get install ninja-build gettext cmake unzip curl build-essential
+    git clone https://github.com/neovim/neovim
+    cd neovim && make CMAKE_BUILD_TYPE=Release
+    git checkout stable
+    cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
+    cd ../..
+    rm -rf neovim
+else
+    echo "nvim is already installed."
 fi
 
 
