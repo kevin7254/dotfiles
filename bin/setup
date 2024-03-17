@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-sudo apt install git snapd i3 zsh tmux ripgrep fd-find fonts-jetbrains-mono xclip unzip -y
+sudo apt install git snapd i3 zsh tmux ripgrep fd-find xclip unzip -y
 sudo snap install alacritty --classic
 
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
