@@ -31,7 +31,7 @@ alias c='clear'
 alias h='history'
 
 ## Colorize the ls output ##
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
 alias fd='fdfind'
 
 alias pbcopy='xclip -selection clipboard'
@@ -40,11 +40,6 @@ alias pbpaste='xclip -selection clipboard -o'
 alias emu='emulator -no-snapshot -writable-system'
 
 #export PATH="$PATH:$HOME/niceTools/diff-so-fancy"
-
-fif() {
-  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
-}
 
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
